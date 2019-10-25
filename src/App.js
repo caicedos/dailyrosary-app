@@ -8,7 +8,6 @@ import Home from './Component/Home/Home';
 import Signin from './Component/Signin/Signin';
 import Register from './Component/Register/Register';
 import Profile from './Component/Profile/Profile';
-import 'material-design-icons'
 import './App.css';
 
 class App extends Component {
@@ -18,6 +17,10 @@ class App extends Component {
       showNav: false,
       signedin: false
     }
+  }
+
+  prayerHandler = () => {
+    console.log('click')
   }
 
   signinHandler = () => {
