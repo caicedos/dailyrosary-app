@@ -1,12 +1,12 @@
 import React from 'react';
 
 
-const Profile = ({id, signedin}) => {
+const Profile = ({signedin}) => {
 
     if(signedin){
         return(
         <article className="pa3 pa5-ns" data-name="slab-stat-large">
-        <h3 className="f6 ttu tracked">{`member: ${id}`}</h3>
+        <h3 className="f6 ttu tracked">{`member: ${1}`}</h3>
         <h3 className="f6 ttu tracked">Today's Date</h3>
         <div className="cf">
           <dl className="db dib-l w-auto-l lh-title mr6-l">

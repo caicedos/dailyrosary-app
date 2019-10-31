@@ -16,46 +16,64 @@ class App extends Component {
     this.state = {
       showNav: false,
       signedin: false,
-      users: [],
-      id: '',
-      email: '',
       password: '',
+      users: {
+        id: '',
+        name: '',
+        email: '',
+        prayed: '',
+        joined: ''
+      }
     }
   }
   emailInputHandler = (event) => {
+    const emailInput = event.target.value
+    const userObj = this.state.users
+    const users = Object.assign({}, userObj, { email: emailInput })
     this.setState({
-      email: event.target.value
+      users: users
     })
   }
   passwordInputHandler = (event) => {
+    const passwordInput = event.target.value
     this.setState({
-      password: event.target.value
+      password: passwordInput
     })
   }
 
   authenticationHandler = () => {
-    const userEmail = this.state.users[0].email
-    const userPassword = this.state.users[0].username
-    const userId = this.state.users[0].id
-    console.log(userId)
-    if (this.state.email === userEmail && this.state.password === userPassword) {
-      this.setState({
-        signedin: true,
-        id: userId
+
+    const userEmail = this.state.users.email
+    const userPassword = this.state.password
+    console.log(userEmail)
+    console.log(userPassword)
+
+    if (userEmail && userPassword) {
+      console.log(userEmail, userPassword)
+      fetch('http://localhost:3000/signin', {
+        method: "post",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          email: userEmail,
+          password: userPassword
+        })
       })
-      const newRoute = `/profile/${this.state.id}`
-      console.log(newRoute)
+        .then(response => response.json())
+        .then(data => {
+          if (data) {
+            this.setState({
+              signedin: true,
+              users: data[0]
+            })
+          }
+        })
+        .catch((err) => console.log('wrong credetntials, try again.'))
+
     }
+
+
   }
 
-  componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then((response) => response.json())
-      .then((data) => this.setState({
-        users: data
-      }))
-      .catch((err) => console.log(err))
-  }
 
 
   signinHandler = () => {
@@ -64,7 +82,6 @@ class App extends Component {
     } else {
       this.setState({ signedin: true })
     }
-
   }
 
   openSidenav = () => {
@@ -78,6 +95,8 @@ class App extends Component {
 
 
   render() {
+    console.log(this.state)
+    console.log(this.state.users)
     return (
       <div>
         <Router>
@@ -93,17 +112,21 @@ class App extends Component {
             <Route exact path="/pray-app" component={PrayApp} />
             <Route exact path="/videos" component={Videos} />
             <Route exact path="/signin">
-            <Signin id={this.state.id} authenticationHandler={this.authenticationHandler} emailInputHandler={this.emailInputHandler} passwordInputHandler={this.passwordInputHandler} />
+              {this.state.signedin ?
+                  <Redirect to='/profile' />
+                  :
+                  <Signin authenticationHandler={this.authenticationHandler} emailInputHandler={this.emailInputHandler} passwordInputHandler={this.passwordInputHandler} />
+              }
             </Route>
             <Route exact path="/register">
               <Register />
             </Route>
             <Route exact path='/profile'>
-              {!this.state.signedin ? 
-              <Redirect to='/signin'/>
-               : 
-               <Profile signedin={this.state.signedin} id={this.state.id} />
-               }
+              {this.state.signedin ?
+                <Profile signedin={this.state.signedin} />
+                :    
+                <Redirect to='/signin' />
+              }
             </Route>
             <Route exact path="/" component={Home} />
           </Switch>

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
-const Signin = ({id, passwordInputHandler, emailInputHandler, authenticationHandler}) => {
-    console.log(id)
+const Signin = ({ passwordInputHandler, emailInputHandler, authenticationHandler}) => {
+    
     return (
         <div>
             <main className="pa4 black-80 shadow-5">
@@ -20,7 +20,7 @@ const Signin = ({id, passwordInputHandler, emailInputHandler, authenticationHand
                     
                     </fieldset>
                     <div className="">
-                        <Link to='/profile' onClick={()=> authenticationHandler()} className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib">Sign in</Link>
+                        <Link to='/signin' onClick={()=> authenticationHandler()} className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib">Sign in</Link>
                     </div>
                     <div className="lh-copy mt3">
                         <Link to='Register' href="#0" className="f6 link dim black db">Register</Link>
