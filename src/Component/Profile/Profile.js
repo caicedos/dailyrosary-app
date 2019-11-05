@@ -1,25 +1,27 @@
 import React from 'react';
 
+const Profile = ({ signedin, user }) => {
+  const { id, name, email, prayed, joined } = user
 
-const Profile = ({signedin}) => {
-
-    if(signedin){
-        return(
-        <article className="pa3 pa5-ns" data-name="slab-stat-large">
-        <h3 className="f6 ttu tracked">{`member: ${1}`}</h3>
+  if (signedin) {
+    return (
+      <article className="pa3 pa5-ns" data-name="slab-stat-large">
+        <h3 className="f6 ttu tracked">{`id: ${id}`}</h3>
+        <h3 className="f6 ttu tracked">{`name: ${name}`}</h3>
+        <h3 className="f6 ttu tracked">{`email: ${email}`}</h3>
         <h3 className="f6 ttu tracked">Today's Date</h3>
         <div className="cf">
           <dl className="db dib-l w-auto-l lh-title mr6-l">
             <dd className="f6 fw4 ml0">Rosaries Prayed</dd>
-            <dd className="f2 f-subheadline-l fw6 ml0">1,024</dd>
+            <dd className="f2 f-subheadline-l fw6 ml0">{prayed}</dd>
           </dl>
           <dl className="db dib-l w-auto-l lh-title mr6-l">
             <dd className="f6 fw4 ml0">Current Streak</dd>
             <dd className="f2 f-subheadline-l fw6 ml0">993</dd>
           </dl>
           <dl className="db dib-l w-auto-l lh-title mr6-l">
-            <dd className="f6 fw4 ml0">Member Months</dd>
-            <dd className="f2 f-subheadline-l fw6 ml0">10-22</dd>
+            <dd className="f6 fw4 ml0">Joined</dd>
+            <dd className="f2 f-subheadline-l fw6 ml0">{joined}</dd>
           </dl>
           <dl className="db dib-l w-auto-l lh-title mr6-l">
             <dd className="f6 fw4 ml0">Level</dd>
@@ -35,9 +37,9 @@ const Profile = ({signedin}) => {
           </dl>
         </div>
       </article>)
-    } else {
-        return (<div>NOT SIGNEDIN!!!</div>)
-    }
+  } else {
+    return (<div>NOT SIGNEDIN!!!</div>)
+  }
 }
 
 export default Profile;

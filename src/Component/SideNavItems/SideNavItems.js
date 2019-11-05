@@ -11,13 +11,12 @@ const SideNavItems = ({ closeSidenav, signedinState }) => {
                 <Link className='black bb w-100 pa3 bg-animate hover-bg-light-blue hover-white no-underline' onClick={() => closeSidenav()} to="/pray-app" >PrayApp</Link>
                 <Link className='black bb w-100 pa3 bg-animate hover-bg-light-blue hover-white no-underline' onClick={() => closeSidenav()} to="/videos" >Videos/Music</Link>
                 {
-                signedinState ?
-                    <Link className='black bb w-100 pa3 bg-animate hover-bg-light-blue hover-white no-underline' onClick={() => closeSidenav()} to="/profile" >Profile</Link>
-                    :
-                    null
+                    signedinState ?
+                        <Link className='black bb w-100 pa3 bg-animate hover-bg-light-blue hover-white no-underline' onClick={() => closeSidenav()} to="/profile" >Profile</Link>
+                        :
+                        null
                 }
             </div>
-
         </div>
     )
 }

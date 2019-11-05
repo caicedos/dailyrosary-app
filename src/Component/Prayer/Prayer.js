@@ -70,8 +70,6 @@ const Prayer = ({ prayer1, prayer2 }) => {
     }  else {
         return null
     }
-            
-
 }
 
 export default Prayer;

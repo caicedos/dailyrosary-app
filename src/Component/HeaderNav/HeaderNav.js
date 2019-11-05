@@ -5,7 +5,7 @@ import SideNav, { MenuIcon } from 'react-simple-sidenav';
 import SideNavItems from '../SideNavItems/SideNavItems';
 import './HeaderNav.css'
 
-const HeaderNav = ({ openSidenav, sidenavState, closeSidenav, signedinState, signinHandler}) => {
+const HeaderNav = ({ openSidenav, sidenavState, closeSidenav, signedinState, signoutHandler }) => {
     return (
         <div className='container'>
             <nav className="flex justify-between bb b--white-10">
@@ -18,16 +18,14 @@ const HeaderNav = ({ openSidenav, sidenavState, closeSidenav, signedinState, sig
                         background: '#E8FDF5'
                     }}
                 >
-                <SideNavItems closeSidenav={closeSidenav} signedinState={signedinState}/>
+                    <SideNavItems closeSidenav={closeSidenav} signedinState={signedinState} />
                 </SideNav>
-
                 <div className="flex-grow pa3 flex items-center">
-                    <SigninButton signedinState={signedinState} signinHandler={signinHandler}/>
-                    <RegisterButton signedinState={signedinState} signinHandler={signinHandler}/>
+                    <SigninButton signedinState={signedinState} signoutHandler={signoutHandler} />
+                    <RegisterButton signedinState={signedinState} />
                 </div>
             </nav>
         </div>
-
     )
 }
 export default HeaderNav;

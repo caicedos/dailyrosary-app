@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Register = () => {
+const Register = ({ registrationHandler, emailInputHandler, passwordInputHandler, nameInputHandler }) => {
     return (
         <div>
             <main className="pa4 black-80 shadow-5">
@@ -9,22 +10,20 @@ const Register = () => {
                         <legend className="f4 fw6 ph0 mh0">Register</legend>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="email-address">Name</label>
-                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="name" id="name" />
+                            <input onChange={(event) => nameInputHandler(event)} className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="name" id="name" />
                         </div>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address" id="email-address" />
+                            <input onChange={(event) => emailInputHandler(event)} className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address" id="email-address" />
                         </div>
-                            <div className="mv3">
-                                <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                                <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password" id="password" />
-                            </div>
-                                
+                        <div className="mv3">
+                            <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
+                            <input onChange={(event) => passwordInputHandler(event)} className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password" id="password" />
+                        </div>
                     </fieldset>
-                                <div className="">
-                                    <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Register" />
-                                </div>
-                                   
+                    <div className="">
+                        <Link to='/register' onClick={() => registrationHandler()} className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib">Register</Link>
+                    </div>
                 </form>
             </main>
         </div>

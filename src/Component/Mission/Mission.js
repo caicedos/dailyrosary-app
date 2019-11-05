@@ -24,7 +24,7 @@ const Mission = () => {
                     in remembrance of his mercy,
                     as he spoke to our fathers,
                     to Abraham and to his posterity for ever.
-    
+
                     (Luke 1:46-55)
                 </p>
                 <p className="f4 lh-copy measure">
@@ -46,7 +46,7 @@ const Mission = () => {
                     in remembrance of his mercy,
                     as he spoke to our fathers,
                     to Abraham and to his posterity for ever.
-    
+
                     (Luke 1:46-55)
                 </p>
             </main>

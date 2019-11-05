@@ -7,8 +7,17 @@ import Home from './Component/Home/Home';
 import Signin from './Component/Signin/Signin';
 import Register from './Component/Register/Register';
 import Profile from './Component/Profile/Profile';
-import HeaderNav from './Component/HeaderNav/HeaderNav'
+import HeaderNav from './Component/HeaderNav/HeaderNav';
 import './App.css';
+
+const initialUserObj =
+{
+  id: '',
+  name: '',
+  email: '',
+  prayed: '',
+  joined: ''
+}
 
 class App extends Component {
   constructor(props) {
@@ -17,93 +26,103 @@ class App extends Component {
       showNav: false,
       signedin: false,
       password: '',
-      users: {
-        id: '',
-        name: '',
-        email: '',
-        prayed: '',
-        joined: ''
-      }
+      users: initialUserObj
     }
   }
+
   emailInputHandler = (event) => {
-    const emailInput = event.target.value
+    const email = event.target.value
     const userObj = this.state.users
-    const users = Object.assign({}, userObj, { email: emailInput })
-    this.setState({
-      users: users
-    })
+    const users = Object.assign({}, userObj, { email })
+    this.setState({ users })
   }
   passwordInputHandler = (event) => {
-    const passwordInput = event.target.value
-    this.setState({
-      password: passwordInput
-    })
+    const password = event.target.value
+    this.setState({ password })
+  }
+  nameInputHandler = (event) => {
+    const name = event.target.value
+    const userObj = this.state.users
+    const users = Object.assign({}, userObj, { name })
+    this.setState({ users })
+  }
+
+  registrationHandler = () => {
+
+    const { name, email } = this.state.users;
+    const { signedin, password } = this.state;
+
+    if (!signedin && name && email && password) {
+      fetch('http://localhost:3000/register', {
+        method: "post",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ name, email, password })
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          if (data === 'Incorrect form submission') {
+            console.log(data)
+          } else {
+            this.setState({
+              signedin: true,
+              users: data
+            })
+          }
+        })
+        .catch((err) => console.log('there was an error'))
+    } else {
+      console.log('Invalid registration input')
+    }
   }
 
   authenticationHandler = () => {
 
-    const userEmail = this.state.users.email
-    const userPassword = this.state.password
-    console.log(userEmail)
-    console.log(userPassword)
+    const { email } = this.state.users;
+    const { password } = this.state;
 
-    if (userEmail && userPassword) {
-      console.log(userEmail, userPassword)
+    if (email && password) {
       fetch('http://localhost:3000/signin', {
         method: "post",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          email: userEmail,
-          password: userPassword
-        })
+        body: JSON.stringify({ email, password })
       })
         .then(response => response.json())
         .then(data => {
-          if (data) {
+          if (data === 'Wrong Credentials') {
+          } else {
             this.setState({
               signedin: true,
-              users: data[0]
+              users: data
             })
           }
         })
         .catch((err) => console.log('wrong credetntials, try again.'))
-
     }
-
-
   }
 
-
-
-  signinHandler = () => {
+  signoutHandler = () => {
     if (this.state.signedin) {
-      this.setState({ signedin: false })
-    } else {
-      this.setState({ signedin: true })
+      const users = Object.assign({}, initialUserObj)
+      this.setState({ signedin: false, users })
     }
   }
-
   openSidenav = () => {
     this.setState({ showNav: true })
   }
-
   closeSidenav = () => {
     this.setState({ showNav: false })
   }
 
-
-
   render() {
-    console.log(this.state)
-    console.log(this.state.users)
+    const { users, signedin, showNav } = this.state
     return (
       <div>
         <Router>
           <HeaderNav
-            sidenavState={this.state.showNav}
-            signedinState={this.state.signedin}
-            signinHandler={this.signinHandler}
+            sidenavState={showNav}
+            signedinState={signedin}
+            signoutHandler={this.signoutHandler}
             openSidenav={this.openSidenav}
             closeSidenav={this.closeSidenav}
           />
@@ -112,20 +131,27 @@ class App extends Component {
             <Route exact path="/pray-app" component={PrayApp} />
             <Route exact path="/videos" component={Videos} />
             <Route exact path="/signin">
-              {this.state.signedin ?
+              {
+                this.state.signedin ?
                   <Redirect to='/profile' />
                   :
                   <Signin authenticationHandler={this.authenticationHandler} emailInputHandler={this.emailInputHandler} passwordInputHandler={this.passwordInputHandler} />
               }
             </Route>
             <Route exact path="/register">
-              <Register />
+              {
+                this.state.signedin ?
+                  <Redirect to='/profile' />
+                  :
+                  <Register registrationHandler={this.registrationHandler} emailInputHandler={this.emailInputHandler} passwordInputHandler={this.passwordInputHandler} nameInputHandler={this.nameInputHandler} />
+              }
             </Route>
             <Route exact path='/profile'>
-              {this.state.signedin ?
-                <Profile signedin={this.state.signedin} />
-                :    
-                <Redirect to='/signin' />
+              {
+                this.state.signedin ?
+                  <Profile user={users} signedin={signedin} />
+                  :
+                  <Redirect to='/signin' />
               }
             </Route>
             <Route exact path="/" component={Home} />
