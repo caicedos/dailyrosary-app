@@ -8,7 +8,7 @@ const textToSpeech = new TextToSpeechV1({
 });
 
 const params = {
-  text: 'Hail Mary, Full of Grace, The Lord is with thee. Blessed art thou among women, and blessed is the fruitof thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners now, and at the hour of our death.   Amen.',
+  text: 'Glory be to the Father, to the Son, and to the Holy Spirit, as it was, is now, and ever shall be, world without end. Amen.          Our Father, Who art in heaven, Hallowed be Thy Name. Thy Kingdom come. Thy Will be done, on earth as it is in Heaven. Give us this day our daily bread. And forgive us our trespasses, as we forgive those who trespass against us. And lead us not into temptation, but deliver us from evil. Amen.',
   voice: 'en-US_MichaelV3Voice', // Optional voice
   accept: 'audio/wav'
 };
@@ -24,7 +24,7 @@ textToSpeech
     return textToSpeech.repairWavHeaderStream(audio);
   })
   .then(repairedFile => {
-    fs.writeFileSync('audio.wav', repairedFile);
+    fs.writeFileSync('glorybeOurfather.wav', repairedFile);
     console.log('audio.wav written with a corrected wav header');
   })
   .catch(err => {

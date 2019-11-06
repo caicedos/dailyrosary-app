@@ -14,7 +14,7 @@ const Prayer = ({ prayer1, prayer2 }) => {
                 <div>
                     <h1>Our Father</h1>
                     <p className="f3 lh-copy measure mt0-ns">
-                    Our Father, Who art in heaven,
+                        Our Father, Who art in heaven,
                         Hallowed be Thy Name.
                         Thy Kingdom come.
                         Thy Will be done,

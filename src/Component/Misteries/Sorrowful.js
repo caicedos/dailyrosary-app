@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Glorious = ({ misteries }) => {
-    console.log(misteries)
     switch (misteries) {
         case 1:
             return (

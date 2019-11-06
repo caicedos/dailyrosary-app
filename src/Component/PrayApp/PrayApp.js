@@ -3,6 +3,10 @@ import Rosary from '../Rosary/Rosary'
 import MisteryDay from '../MisteryDay/MisteryDay'
 import Prayer from '../Prayer/Prayer'
 import AudioControls from '../AudioControls/AudioControls'
+import hailmaryAudio from './hailmaryAudio.wav';
+import ourfatherAudio from './ourfatherAudio.wav';
+import apostlescreedAudio from './apostlescreedAudio.wav';
+import glorybeOurfatherAudio from './glorybeOurfatherAudio.wav';
 
 class PrayApp extends Component {
     constructor() {
@@ -14,7 +18,35 @@ class PrayApp extends Component {
             misteries: 0,
             counter: 0,
             image: '',
-            audio: false
+            audio: false,
+            prayerAudio: {}
+        }
+    }
+
+    audioPlay = () => {
+        const { prayer1, prayer2 } = this.state
+        if (prayer1 === 'hailmary') {
+            return hailmaryAudio
+        } else if (prayer1 === 'glorybe' && prayer2 === 'ourfather') {
+            return glorybeOurfatherAudio
+        } else if (prayer1 === 'ourfather') {
+            return ourfatherAudio
+        } else if (prayer1 === 'apostlescreed') {
+            return apostlescreedAudio
+        }
+    }
+
+    playControl = (command) => {
+        const { prayerAudio } = this.state
+
+        if (command === 'play') {
+            const audio = new Audio(this.audioPlay())
+            audio.play()
+            this.setState({
+                prayerAudio: audio
+            })
+        } else {
+            prayerAudio.pause()
         }
     }
 
@@ -50,7 +82,7 @@ class PrayApp extends Component {
                 <article className="cf ph3 ph5-ns pv5">
                     <header className="fn fl-ns w-50-ns pr4-ns">
                         <Rosary counter={counter} decadeIncreaseHandler={this.decadeIncreaseHandler} prayerMisteryrHandler={this.prayerMisteryrHandler} />
-                        <AudioControls audio={audio} />
+                        <AudioControls audio={audio} playControl={this.playControl} />
                     </header>
                     <div className="fn fl-ns w-50-ns">
                         <Prayer prayer1={prayer1} prayer2={prayer2} />
@@ -63,37 +95,3 @@ class PrayApp extends Component {
 }
 
 export default PrayApp;
-
-
-
-
-
-
-
-
-
-                            // misteryToPray: {
-                            //     today: '',
-                            //     misteries: [
-                            //         {
-                            //             name: 'Glorious',
-                            //             days: [1, 6],
-                            //             mistery: ['annunciation', 'visitation', 'nativity', 'presentation', 'finding']
-                            //         }, 
-                            //         {
-                            //             name: 'Sorrowful',
-                            //             days: [2, 5],
-                            //             mistery: ['agony', 'scourging', 'thorns', 'carrying', 'crucifixion']
-                            //         }, 
-                            //         {
-                            //             name: 'Glorious',
-                            //             days: [3, 7],
-                            //             mistery: ['resurrection', 'ascension', 'holyspirit', 'assumption', 'coronation']
-                            //         },
-                            //         {
-                            //             name: 'Light',
-                            //             days: [4],
-                            //             mistery: ['baptism', 'wedding', 'preaching', 'transfiguration', 'holyeucharist']
-                            //         }
-                            //     ],
-                            // },
