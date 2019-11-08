@@ -13,10 +13,13 @@ import './App.css';
 const initialUserObj =
 {
   id: '',
-  name: '',
+  firstName: '',
+  lastName: '',
   email: '',
-  prayed: '',
-  joined: ''
+  prayed: 0,
+  level: 1,
+  joined: '',
+  streak: 0,
 }
 
 class App extends Component {
@@ -30,6 +33,23 @@ class App extends Component {
     }
   }
 
+  prayerCount = () => {
+    let prayed = this.state.users.prayed
+    prayed++
+    const userObj = this.state.users
+    const level = this.levelCalculator(prayed)
+    const users = Object.assign({}, userObj, { prayed, level })
+    this.setState({ users })
+  }
+
+  levelCalculator = (prayed) => {
+    if (prayed >= 13 && prayed < 18) {
+      return 2
+    } else if (prayed >= 18 && prayed < 23) {
+      return 3
+    }
+  }
+
   emailInputHandler = (event) => {
     const email = event.target.value
     const userObj = this.state.users
@@ -40,23 +60,45 @@ class App extends Component {
     const password = event.target.value
     this.setState({ password })
   }
-  nameInputHandler = (event) => {
-    const name = event.target.value
-    const userObj = this.state.users
-    const users = Object.assign({}, userObj, { name })
-    this.setState({ users })
+  nameInputHandler = (event, name) => {
+    if (name === 'first') {
+      const firstName = event.target.value
+      const userObj = this.state.users
+      const users = Object.assign({}, userObj, { firstName })
+      this.setState({ users })
+    } else if ('last') {
+      const lastName = event.target.value
+      const userObj = this.state.users
+      const users = Object.assign({}, userObj, { lastName })
+      this.setState({ users })
+    }
+  }
+
+  updateDbStats = () => {
+    const { id, level, prayed, streak } = this.state.users
+    console.log(id, level, prayed, streak)
+    if (id > 0) {
+      fetch('http://localhost:3000/profile', {
+        method: "post",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ id, level, prayed, streak })
+      })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch((err) => console.log('error here', err))
+    }
   }
 
   registrationHandler = () => {
 
-    const { name, email } = this.state.users;
+    const { firstName, lastName, email } = this.state.users;
     const { signedin, password } = this.state;
 
-    if (!signedin && name && email && password) {
+    if (!signedin && firstName && lastName && email && password) {
       fetch('http://localhost:3000/register', {
         method: "post",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ name, email, password })
+        body: JSON.stringify({ firstName, lastName, email, password })
       })
         .then(response => response.json())
         .then(data => {
@@ -91,6 +133,7 @@ class App extends Component {
         .then(data => {
           if (data === 'Wrong Credentials') {
           } else {
+            console.log(data)
             this.setState({
               signedin: true,
               users: data
@@ -113,6 +156,10 @@ class App extends Component {
   closeSidenav = () => {
     this.setState({ showNav: false })
   }
+  
+  componentDidUpdate() {
+    this.updateDbStats()
+  }
 
   render() {
     const { users, signedin, showNav } = this.state
@@ -128,7 +175,9 @@ class App extends Component {
           />
           <Switch>
             <Route exact path="/Mission" component={Mission} />
-            <Route exact path="/pray-app" component={PrayApp} />
+            <Route exact path="/pray-app">
+              <PrayApp levelCalculator={this.levelCalculator} prayerCount={this.prayerCount} />
+            </Route>
             <Route exact path="/videos" component={Videos} />
             <Route exact path="/signin">
               {
@@ -154,7 +203,9 @@ class App extends Component {
                   <Redirect to='/signin' />
               }
             </Route>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Home}>
+              <Redirect to='/pray-app' />
+            </Route>
           </Switch>
         </Router>
       </div>

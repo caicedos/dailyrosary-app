@@ -24,6 +24,14 @@ class PrayApp extends Component {
         }
     }
 
+    prayerCounter = (meditation) => {
+        const { misteries } = this.state
+        console.log('misteries', misteries)
+        if (meditation === 10 && misteries === 5){
+            this.props.prayerCount()
+        }
+    }
+
     audioPlay = () => {
         const { prayer1, prayer2 } = this.state
         if (prayer1 === 'hailmary') {
@@ -70,6 +78,7 @@ class PrayApp extends Component {
 
     prayerMisteryrHandler = (prayer1, prayer2, meditation) => {
         this.setState({ prayer1, prayer2, meditation })
+        this.prayerCounter(meditation)
     }
 
     componentDidMount() {

@@ -9,8 +9,12 @@ const Register = ({ registrationHandler, emailInputHandler, passwordInputHandler
                     <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
                         <legend className="f4 fw6 ph0 mh0">Register</legend>
                         <div className="mt3">
-                            <label className="db fw6 lh-copy f6" htmlFor="email-address">Name</label>
-                            <input onChange={(event) => nameInputHandler(event)} className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="name" id="name" />
+                            <label className="db fw6 lh-copy f6" htmlFor="first-name">First Name</label>
+                            <input onChange={(event) => nameInputHandler(event, 'first')} className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="firstName" id="firstName" />
+                        </div>
+                        <div className="mt3">
+                            <label className="db fw6 lh-copy f6" htmlFor="last-name">Last Name</label>
+                            <input onChange={(event) => nameInputHandler(event, 'last')} className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="lastName" id="lastName" />
                         </div>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>

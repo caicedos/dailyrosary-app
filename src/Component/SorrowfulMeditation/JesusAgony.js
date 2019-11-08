@@ -1,7 +1,6 @@
 import React from 'react';
 
 const JesusAgony = ({ meditation }) => {
-    console.log('aqui', meditation)
     switch (meditation) {
         case 1:
             return <p>Jesus comes with his disciples to Gethsemani: “Stay here, while I go yonder and pray.”</p>
