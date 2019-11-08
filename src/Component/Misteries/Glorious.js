@@ -1,6 +1,12 @@
 import React from 'react';
+import ResurrectionMeditation from '../GloriousMeditation/ResurrectionMeditation';
+import AscensionMeditation from '../GloriousMeditation/AscensionMeditation';
+import HolySpiritMeditation from '../GloriousMeditation/HolySpiritMeditation';
+import AssumptionMaryMeditation from '../GloriousMeditation/AssumptionMaryMeditation';
+import CoronationMaryMeditation from '../GloriousMeditation/CoronationMary';
 
-const Glorious = ({ misteries }) => {
+const Glorious = ({ misteries, meditation }) => {
+
 
     switch (misteries) {
         case 1:
@@ -8,7 +14,8 @@ const Glorious = ({ misteries }) => {
                 <div>
                     <h1>The Resurrection (John 20:1–29)</h1>
                     <p className="f3 lh-copy measure mt0-ns">
-                        here goes the prayer or mistery description!!
+                        <ResurrectionMeditation meditation={meditation}/>
+                        
                     </p>
                 </div>
             )
@@ -17,7 +24,7 @@ const Glorious = ({ misteries }) => {
                 <div>
                     <h1>The Ascension (Luke 24:36–53)</h1>
                     <p className="f3 lh-copy measure mt0-ns">
-                        here goes the prayer or mistery description!!
+                        <AscensionMeditation meditation={meditation}/>
                     </p>
                 </div>
             )
@@ -26,7 +33,7 @@ const Glorious = ({ misteries }) => {
                 <div>
                     <h1>The Descent of the Holy Spirit (Acts 2:1–41)</h1>
                     <p className="f3 lh-copy measure mt0-ns">
-                        here goes the prayer or mistery description!!
+                        <HolySpiritMeditation meditation={meditation}/>
                     </p>
                 </div>
             )
@@ -35,7 +42,7 @@ const Glorious = ({ misteries }) => {
                 <div>
                     <h1>The Assumption of Mary</h1>
                     <p className="f3 lh-copy measure mt0-ns">
-                        here goes the prayer or mistery description!!
+                        <AssumptionMaryMeditation meditation={meditation}/>
                     </p>
                 </div>
             )
@@ -44,7 +51,7 @@ const Glorious = ({ misteries }) => {
                 <div>
                     <h1>The Coronation of Mary in heaven</h1>
                     <p className="f3 lh-copy measure mt0-ns">
-                        here goes the prayer or mistery description!!
+                        <CoronationMaryMeditation meditation={meditation}/>
                     </p>
                 </div>
             )

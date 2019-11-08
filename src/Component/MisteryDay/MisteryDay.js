@@ -4,23 +4,23 @@ import Glorious from '../Misteries/Glorious';
 import Joyful from '../Misteries/Joyful';
 import Light from '../Misteries/Light';
 
-const MisteryDay = ({ today, misteries }) => {
+const MisteryDay = ({ today, misteries, meditation }) => {
 
     switch (today) {
         case 0:
-            return <Glorious misteries={misteries} />;
+            return <Glorious meditation={meditation} misteries={misteries} />;
         case 1:
-            return <Joyful misteries={misteries} />;
+            return <Joyful meditation={meditation} misteries={misteries} />;
         case 2:
-            return <Sorrowful misteries={misteries} />;
+            return <Sorrowful meditation={meditation} misteries={misteries} />;
         case 3:
-            return <Glorious misteries={misteries} />;
+            return <Glorious meditation={meditation} misteries={misteries} />;
         case 4:
-            return <Light misteries={misteries} />;
+            return <Light meditation={meditation} misteries={misteries} />;
         case 5:
-            return <Sorrowful misteries={misteries} />;
+            return <Sorrowful meditation={meditation} misteries={misteries} />;
         case 6:
-            return <Joyful misteries={misteries} />;
+            return <Joyful meditation={meditation} misteries={misteries} />;
         default:
             return null
     }

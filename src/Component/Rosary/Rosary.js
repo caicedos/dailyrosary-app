@@ -25,18 +25,18 @@ const Rosary = ({ prayerMisteryrHandler, decadeIncreaseHandler, counter }) => {
                         <a onClick={() => decadeIncreaseHandler('glorybe', 'ourfather')} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib black bg-yellow hover-bg-light-blue" href="#0">{counter}</a>
                     </div>
                     <div>
-                        <a onClick={() => prayerMisteryrHandler('hailmary')} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">1</a>
-                        <a onClick={() => prayerMisteryrHandler('hailmary')} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">2</a>
-                        <a onClick={() => prayerMisteryrHandler('hailmary')} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">3</a>
-                        <a onClick={() => prayerMisteryrHandler('hailmary')} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">4</a>
-                        <a onClick={() => prayerMisteryrHandler('hailmary')} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">5</a>
+                        <a onClick={() => prayerMisteryrHandler('hailmary', '', 1)} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">1</a>
+                        <a onClick={() => prayerMisteryrHandler('hailmary', '', 2)} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">2</a>
+                        <a onClick={() => prayerMisteryrHandler('hailmary', '', 3)} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">3</a>
+                        <a onClick={() => prayerMisteryrHandler('hailmary', '', 4)} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">4</a>
+                        <a onClick={() => prayerMisteryrHandler('hailmary', '', 5)} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">5</a>
                     </div>
                     <div>
-                        <a onClick={() => prayerMisteryrHandler('hailmary')} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">6</a>
-                        <a onClick={() => prayerMisteryrHandler('hailmary')} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">7</a>
-                        <a onClick={() => prayerMisteryrHandler('hailmary')} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">8</a>
-                        <a onClick={() => prayerMisteryrHandler('hailmary')} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">9</a>
-                        <a onClick={() => prayerMisteryrHandler('hailmary')} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">10</a>
+                        <a onClick={() => prayerMisteryrHandler('hailmary', '', 6)} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">6</a>
+                        <a onClick={() => prayerMisteryrHandler('hailmary', '', 7)} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">7</a>
+                        <a onClick={() => prayerMisteryrHandler('hailmary', '', 8)} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">8</a>
+                        <a onClick={() => prayerMisteryrHandler('hailmary', '', 9)} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">9</a>
+                        <a onClick={() => prayerMisteryrHandler('hailmary', '', 10)} className="f7 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-gray hover-bg-light-blue" href="#0">10</a>
                     </div>
                 </div>
             </h2>

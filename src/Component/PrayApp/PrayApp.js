@@ -19,7 +19,8 @@ class PrayApp extends Component {
             counter: 0,
             image: '',
             audio: false,
-            prayerAudio: {}
+            prayerAudio: {},
+            meditation: 0
         }
     }
 
@@ -62,12 +63,13 @@ class PrayApp extends Component {
             prayer1,
             prayer2,
             counter: count,
-            misteries: mistery
+            misteries: mistery,
+            meditation: 0
         })
     }
 
-    prayerMisteryrHandler = (prayer1, prayer2, mistery) => {
-        this.setState({ prayer1, prayer2 })
+    prayerMisteryrHandler = (prayer1, prayer2, meditation) => {
+        this.setState({ prayer1, prayer2, meditation })
     }
 
     componentDidMount() {
@@ -76,7 +78,7 @@ class PrayApp extends Component {
     }
 
     render() {
-        const { audio, prayer1, prayer2, today, counter, misteries } = this.state
+        const { meditation, audio, prayer1, prayer2, today, counter, misteries } = this.state
         return (
             <div>
                 <article className="cf ph3 ph5-ns pv5">
@@ -86,7 +88,7 @@ class PrayApp extends Component {
                     </header>
                     <div className="fn fl-ns w-50-ns">
                         <Prayer prayer1={prayer1} prayer2={prayer2} />
-                        <MisteryDay misteries={misteries} today={today} />
+                        <MisteryDay meditation={meditation} misteries={misteries} today={today} />
                     </div>
                 </article>
             </div>
