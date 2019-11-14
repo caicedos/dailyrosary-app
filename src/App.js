@@ -8,6 +8,8 @@ import Signin from './Component/Signin/Signin';
 import Register from './Component/Register/Register';
 import Profile from './Component/Profile/Profile';
 import HeaderNav from './Component/HeaderNav/HeaderNav';
+import Error from './Component/Error/Error';
+import moment from 'moment';
 import './App.css';
 
 const initialUserObj =
@@ -20,6 +22,7 @@ const initialUserObj =
   level: 1,
   joined: '',
   streak: 0,
+  lastlogouttime: '',
 }
 
 class App extends Component {
@@ -29,10 +32,14 @@ class App extends Component {
       showNav: false,
       signedin: false,
       password: '',
-      users: initialUserObj
+      users: initialUserObj,
+      error: false,
+      errorMessage: '',
+      logintime: '',
+      initialPrayedCount: 0
     }
   }
-
+  
   prayerCount = () => {
     let prayed = this.state.users.prayed
     prayed++
@@ -43,7 +50,9 @@ class App extends Component {
   }
 
   levelCalculator = (prayed) => {
-    if (prayed >= 13 && prayed < 18) {
+    if(prayed < 13) {
+      return 1
+    } else if (prayed >= 13 && prayed < 18) {
       return 2
     } else if (prayed >= 18 && prayed < 23) {
       return 3
@@ -53,13 +62,35 @@ class App extends Component {
   emailInputHandler = (event) => {
     const email = event.target.value
     const userObj = this.state.users
-    const users = Object.assign({}, userObj, { email })
-    this.setState({ users })
+    const errorMessage = 'Invalid email address.'
+    
+    if(email.includes('@') && email.includes('.') && email.includes('com')){
+      const users = Object.assign({}, userObj, { email })
+      this.setState({ error:false, users })
+    } else {
+      this.setState({error: true, errorMessage })
+    }
   }
+
+  passwordValidation = (input) => {
+    const characterArray = ['!', '@', '#', '$', '&']
+    for(const e of characterArray){
+      if(input.includes(e)){
+        return true
+      }
+    }
+  }
+
   passwordInputHandler = (event) => {
     const password = event.target.value
-    this.setState({ password })
+    const errorMessage = 'Invalid password input. Must be at least 6 characters long and include one of these characters: !, @, #, $, &.'
+    if(password.length >= 6 && this.passwordValidation(password)){
+      this.setState({ password, error: false })  
+    } else {
+      this.setState({error: true, errorMessage })
+    }
   }
+
   nameInputHandler = (event, name) => {
     if (name === 'first') {
       const firstName = event.target.value
@@ -75,37 +106,50 @@ class App extends Component {
   }
 
   updateDbStats = () => {
-    const { id, level, prayed, streak } = this.state.users
-    console.log(id, level, prayed, streak)
+    const { id, level, prayed } = this.state.users
+    const streak = this.streakCalculation()
     if (id > 0) {
       fetch('http://localhost:3000/profile', {
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ id, level, prayed, streak })
       })
-        .then(response => response.json())
-        .then(data => console.log(data))
         .catch((err) => console.log('error here', err))
     }
   }
 
-  registrationHandler = () => {
+  streakCalculation = () => {
+    const { logintime, initialPrayedCount } = this.state
+    const { lastlogouttime, prayed } = this.state.users
+    const compared = moment(logintime).isBefore(lastlogouttime);
+  
+    if (compared && prayed > initialPrayedCount) {
+      let streak = this.state.users.streak
+      streak++
+      return streak
+    } else {
+      return 0
+    }
+  }
 
+  registrationHandler = () => {
     const { firstName, lastName, email } = this.state.users;
     const { signedin, password } = this.state;
-
-    if (!signedin && firstName && lastName && email && password) {
+    const joined = moment().format('L');
+    
+    if (!signedin && firstName && lastName && email && password && joined) {
+      
+      console.log(joined)
       fetch('http://localhost:3000/register', {
         method: "post",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ firstName, lastName, email, password })
+        body: JSON.stringify({ firstName, lastName, email, password, joined })
       })
         .then(response => response.json())
         .then(data => {
-          console.log(data)
           if (data === 'Incorrect form submission') {
-            console.log(data)
           } else {
+            console.log(data)
             this.setState({
               signedin: true,
               users: data
@@ -119,10 +163,9 @@ class App extends Component {
   }
 
   authenticationHandler = () => {
-
     const { email } = this.state.users;
     const { password } = this.state;
-
+    
     if (email && password) {
       fetch('http://localhost:3000/signin', {
         method: "post",
@@ -133,9 +176,12 @@ class App extends Component {
         .then(data => {
           if (data === 'Wrong Credentials') {
           } else {
-            console.log(data)
+            const logintime = moment().format()
+            const initialPrayedCount = data.prayed
             this.setState({
               signedin: true,
+              initialPrayedCount,
+              logintime,
               users: data
             })
           }
@@ -144,12 +190,25 @@ class App extends Component {
     }
   }
 
+  lastLogoutTime = () => {
+    const {id} = this.state.users
+    const lastlogouttime = moment().add(1, 'days')
+    fetch('http://localhost:3000/profile',{
+        method: "post",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ id, lastlogouttime })
+    })
+      .catch((err) => console.log('error here', err))
+  }
+
   signoutHandler = () => {
     if (this.state.signedin) {
+      this.lastLogoutTime()
       const users = Object.assign({}, initialUserObj)
       this.setState({ signedin: false, users })
     }
   }
+
   openSidenav = () => {
     this.setState({ showNav: true })
   }
@@ -162,7 +221,7 @@ class App extends Component {
   }
 
   render() {
-    const { users, signedin, showNav } = this.state
+    const { errorMessage, error, users, signedin, showNav } = this.state
     return (
       <div>
         <Router>
@@ -172,7 +231,9 @@ class App extends Component {
             signoutHandler={this.signoutHandler}
             openSidenav={this.openSidenav}
             closeSidenav={this.closeSidenav}
+            lastLogoutTime = {this.lastLogoutTime}
           />
+          {error? <Error errorMessage={errorMessage} /> : null}
           <Switch>
             <Route exact path="/Mission" component={Mission} />
             <Route exact path="/pray-app">

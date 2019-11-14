@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Presentation = ({ meditation, today }) => {
-    console.log('aqui', meditation)
+const Presentation = ({ meditation }) => {
     switch (meditation) {
         case 1:
             return <p>Observing the law of Moses they take Jesus to the temple to present Him to the Lord.</p>

@@ -25,7 +25,7 @@ textToSpeech
   })
   .then(repairedFile => {
     fs.writeFileSync('glorybeOurfather.wav', repairedFile);
-    console.log('audio.wav written with a corrected wav header');
+    console.log('written with a corrected wav header');
   })
   .catch(err => {
     console.log(err);

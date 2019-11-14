@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Nativity = ({ meditation, today }) => {
-    console.log('aqui', meditation)
+const Nativity = ({ meditation }) => {
     switch (meditation) {
         case 1:
             return <p>Joseph and Mary go to Bethlehem to comply with the decree of Caesar Augustus.</p>

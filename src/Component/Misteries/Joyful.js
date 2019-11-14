@@ -5,15 +5,14 @@ import Nativity from '../JoyfulMeditation/Nativity';
 import Presentation from '../JoyfulMeditation/Presentation';
 import FindingJesusIntemple from '../JoyfulMeditation/FindingJesusInTemple'
 
-const Joyful = ({ misteries }) => {
-
+const Joyful = ({ misteries, meditation }) => {
     switch (misteries) {
         case 1:
             return (
                 <div>
                     <h1>The Annunciation (Luke 1:26–38)</h1>
                     <div className="f3 lh-copy measure mt0-ns">
-                        <Annunciation misteries={misteries}/>
+                        <Annunciation meditation={meditation}/>
                     </div>
                 </div>
             )
@@ -22,7 +21,7 @@ const Joyful = ({ misteries }) => {
                 <div>
                     <h1>The Visitation (Luke 1:39–56)</h1>
                     <div className="f3 lh-copy measure mt0-ns">
-                        <Visitation misteries={misteries}/>
+                        <Visitation meditation={meditation}/>
                     </div>
                 </div>
             )
@@ -31,7 +30,7 @@ const Joyful = ({ misteries }) => {
                 <div>
                     <h1>The Nativity (Luke 2:1–21)</h1>
                     <div className="f3 lh-copy measure mt0-ns">
-                        <Nativity misteries={misteries}/>
+                        <Nativity meditation={meditation}/>
                     </div>
                 </div>
             )
@@ -40,7 +39,7 @@ const Joyful = ({ misteries }) => {
                 <div>
                     <h1>The Presentation (Luke 2:22–38)</h1>
                     <div className="f3 lh-copy measure mt0-ns">
-                        <Presentation misteries={misteries}/>
+                        <Presentation meditation={meditation}/>
                     </div>
                 </div>
             )
@@ -49,7 +48,7 @@ const Joyful = ({ misteries }) => {
                 <div>
                     <h1>The Finding of the Child Jesus in the Temple (Luke 2:41–52)</h1>
                     <div className="f3 lh-copy measure mt0-ns">
-                        <FindingJesusIntemple misteries={misteries}/>
+                        <FindingJesusIntemple meditation={meditation}/>
                     </div>
                 </div>
             )

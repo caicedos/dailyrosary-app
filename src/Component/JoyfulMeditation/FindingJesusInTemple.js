@@ -1,7 +1,6 @@
 import React from 'react';
 
-const FindingJesusInTemple = ({ meditation, today }) => {
-    console.log('aqui', meditation)
+const FindingJesusInTemple = ({ meditation }) => {
     switch (meditation) {
         case 1:
             return <p>When Jesus is twelve years old, He goes with His parents to Jerusalem for the feast of the Passover.</p>

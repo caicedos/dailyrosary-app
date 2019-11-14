@@ -1,16 +1,39 @@
 import React from 'react';
 import Cross from './cross.png'
+import moment from 'moment'
 
-const Rosary = ({ prayerMisteryrHandler, decadeIncreaseHandler, counter }) => {
+const Rosary = ({ prayerMisteryrHandler, decadeIncreaseHandler, counter, today }) => {
+    const misteryTitle = () => {
+        switch (today) {
+            case 0:
+                return 'Glorious Misteries'
+            case 1:
+                return 'Joyful Misteries'
+            case 2:
+                return 'Sorrowful Misteries'
+            case 3:
+                return 'Glorious Misteries'
+            case 4:
+                return 'Light Misteries'
+            case 5:
+                return 'Sorrowful Misteries'
+            case 6:
+                return 'Joyful Misteries'
+            default:
+                return null
+        }
+    }
+
     return (
         <div>
             <h1 className="tc f2 lh-title fw9 mb3 mt0 pt3 bt bw2">
-                Holy Rosary
+                {misteryTitle()} <br />
+                {moment().format('dddd, MMM Do')}
             </h1>
             <h2 className="tc f3 mid-gray lh-title">
                 <div className="ph0">
                     <div>This is a 5 Decades Rosary. To complete it, click and follow the numbers on the black beads. The second yellow bead will indicate the Decade you are praying. God Bless you.</div>
-                    <div className="mt3 grow center w4">
+                    <div className="cross mt3 grow center w4">
                         <img onClick={() => prayerMisteryrHandler('apostlescreed')} src={Cross} alt='Holy Cross' />
                     </div>
                     <div className=''>

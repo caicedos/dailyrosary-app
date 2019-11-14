@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Annunciation = ({ meditation, today }) => {
-    console.log('aqui', meditation)
+const Annunciation = ({ meditation }) => {
     switch (meditation) {
         case 1:
             return <p>The time for the Incarnation is at hand.</p>

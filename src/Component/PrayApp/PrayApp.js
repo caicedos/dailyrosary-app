@@ -26,7 +26,6 @@ class PrayApp extends Component {
 
     prayerCounter = (meditation) => {
         const { misteries } = this.state
-        console.log('misteries', misteries)
         if (meditation === 10 && misteries === 5){
             this.props.prayerCount()
         }
@@ -90,9 +89,10 @@ class PrayApp extends Component {
         const { meditation, audio, prayer1, prayer2, today, counter, misteries } = this.state
         return (
             <div>
+                <h1 style={{ textAlign: 'center' }}>Holy Rosary</h1>
                 <article className="cf ph3 ph5-ns pv5">
                     <header className="fn fl-ns w-50-ns pr4-ns">
-                        <Rosary counter={counter} decadeIncreaseHandler={this.decadeIncreaseHandler} prayerMisteryrHandler={this.prayerMisteryrHandler} />
+                        <Rosary today={today} counter={counter} decadeIncreaseHandler={this.decadeIncreaseHandler} prayerMisteryrHandler={this.prayerMisteryrHandler} />
                         <AudioControls audio={audio} playControl={this.playControl} />
                     </header>
                     <div className="fn fl-ns w-50-ns">

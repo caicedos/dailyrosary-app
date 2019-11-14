@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Visitation = ({ meditation, today }) => {
-    console.log('aqui', meditation)
+const Visitation = ({ meditation }) => {
     switch (meditation) {
         case 1:
             return <p>Mary’s cousin Elizabeth conceived a son in her old age… for nothing is impossible with God.</p>

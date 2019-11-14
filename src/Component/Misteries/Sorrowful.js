@@ -6,7 +6,7 @@ import JesusAgony from '../SorrowfulMeditation/JesusAgony';
 import Scourging from '../SorrowfulMeditation/Scourging';
 
 
-const Sorrowful = ({ misteries, meditation, today }) => {
+const Sorrowful = ({ misteries, meditation }) => {
     switch (misteries) {
         case 1:
             return (

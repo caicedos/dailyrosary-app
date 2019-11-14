@@ -1,7 +1,6 @@
 import React from 'react';
 
-const CarryingCross = ({ meditation, today }) => {
-    console.log('aqui', meditation)
+const CarryingCross = ({ meditation }) => {
     switch (meditation) {
         case 1:
             return <p>One condemned to death by crucifixion is forced to carry the cross to the place of execution.</p>
