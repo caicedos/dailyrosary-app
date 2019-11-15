@@ -8,7 +8,6 @@ import Signin from './Component/Signin/Signin';
 import Register from './Component/Register/Register';
 import Profile from './Component/Profile/Profile';
 import HeaderNav from './Component/HeaderNav/HeaderNav';
-import Error from './Component/Error/Error';
 import moment from 'moment';
 import './App.css';
 
@@ -108,6 +107,7 @@ class App extends Component {
   updateDbStats = () => {
     const { id, level, prayed } = this.state.users
     const streak = this.streakCalculation()
+    console.log(streak)
     if (id > 0) {
       fetch('http://localhost:3000/profile', {
         method: "post",
@@ -122,13 +122,12 @@ class App extends Component {
     const { logintime, initialPrayedCount } = this.state
     const { lastlogouttime, prayed } = this.state.users
     const compared = moment(logintime).isBefore(lastlogouttime);
-  
+    let streak = this.state.users.streak
     if (compared && prayed > initialPrayedCount) {
-      let streak = this.state.users.streak
       streak++
       return streak
     } else {
-      return 0
+      return streak
     }
   }
 
@@ -209,13 +208,21 @@ class App extends Component {
     }
   }
 
+  signinButtonHeader = () => {
+    this.setState({ error: false })
+  }
+
+  registerButtonHeader = () => {
+    this.setState({ error: false })
+  }
+
   openSidenav = () => {
     this.setState({ showNav: true })
   }
   closeSidenav = () => {
     this.setState({ showNav: false })
   }
-  
+
   componentDidUpdate() {
     this.updateDbStats()
   }
@@ -232,8 +239,9 @@ class App extends Component {
             openSidenav={this.openSidenav}
             closeSidenav={this.closeSidenav}
             lastLogoutTime = {this.lastLogoutTime}
+            signinButtonHeader={this.signinButtonHeader}
+            registerButtonHeader={this.registerButtonHeader}
           />
-          {error? <Error errorMessage={errorMessage} /> : null}
           <Switch>
             <Route exact path="/Mission" component={Mission} />
             <Route exact path="/pray-app">
@@ -245,7 +253,7 @@ class App extends Component {
                 this.state.signedin ?
                   <Redirect to='/profile' />
                   :
-                  <Signin authenticationHandler={this.authenticationHandler} emailInputHandler={this.emailInputHandler} passwordInputHandler={this.passwordInputHandler} />
+                  <Signin error={error} errorMessage={errorMessage} authenticationHandler={this.authenticationHandler} emailInputHandler={this.emailInputHandler} passwordInputHandler={this.passwordInputHandler} />
               }
             </Route>
             <Route exact path="/register">
@@ -253,7 +261,7 @@ class App extends Component {
                 this.state.signedin ?
                   <Redirect to='/profile' />
                   :
-                  <Register registrationHandler={this.registrationHandler} emailInputHandler={this.emailInputHandler} passwordInputHandler={this.passwordInputHandler} nameInputHandler={this.nameInputHandler} />
+                  <Register error={error} errorMessage={errorMessage} registrationHandler={this.registrationHandler} emailInputHandler={this.emailInputHandler} passwordInputHandler={this.passwordInputHandler} nameInputHandler={this.nameInputHandler} />
               }
             </Route>
             <Route exact path='/profile'>

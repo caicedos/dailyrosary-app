@@ -5,7 +5,6 @@ import Joyful from '../Misteries/Joyful';
 import Light from '../Misteries/Light';
 
 const MisteryDay = ({ today, misteries, meditation }) => {
-    console.log(meditation)
     switch (today) {
         case 0:
             return <Glorious meditation={meditation} misteries={misteries} />;

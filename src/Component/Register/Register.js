@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Error from '../Error/Error';
 
-const Register = ({ registrationHandler, emailInputHandler, passwordInputHandler, nameInputHandler }) => {
+const Register = ({ error, errorMessage, registrationHandler, emailInputHandler, passwordInputHandler, nameInputHandler }) => {
     return (
         <div>
+            {error ? <Error errorMessage={errorMessage} /> : null}
             <main className="pa4 black-80 shadow-5">
                 <form className="measure center">
                     <fieldset id="sign_up" className="ba b--transparent ph0 mh0">

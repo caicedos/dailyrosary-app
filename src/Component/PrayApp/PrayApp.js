@@ -20,7 +20,8 @@ class PrayApp extends Component {
             image: '',
             audio: false,
             prayerAudio: {},
-            meditation: 0
+            meditation: 0,
+            toggel: false
         }
     }
 
@@ -80,19 +81,28 @@ class PrayApp extends Component {
         this.prayerCounter(meditation)
     }
 
+    toggelInstructions= () => {
+        if(this.state.toggle){
+            this.setState({ toggle: false})    
+        } else {
+            this.setState({ toggle: true})
+        }
+    }
+
     componentDidMount() {
         const today = new Date().getDay()
         this.setState({ today })
     }
 
     render() {
-        const { meditation, audio, prayer1, prayer2, today, counter, misteries } = this.state
+        const { toggle, meditation, audio, prayer1, prayer2, today, counter, misteries } = this.state
+        console.log(toggle)
         return (
             <div>
                 <h1 style={{ textAlign: 'center' }}>Holy Rosary</h1>
                 <article className="cf ph3 ph5-ns pv5">
                     <header className="fn fl-ns w-50-ns pr4-ns">
-                        <Rosary today={today} counter={counter} decadeIncreaseHandler={this.decadeIncreaseHandler} prayerMisteryrHandler={this.prayerMisteryrHandler} />
+                        <Rosary toggle={toggle} toggelInstructions={this.toggelInstructions} today={today} counter={counter} decadeIncreaseHandler={this.decadeIncreaseHandler} prayerMisteryrHandler={this.prayerMisteryrHandler} />
                         <AudioControls audio={audio} playControl={this.playControl} />
                     </header>
                     <div className="fn fl-ns w-50-ns">
