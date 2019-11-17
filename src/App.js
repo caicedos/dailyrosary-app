@@ -109,7 +109,7 @@ class App extends Component {
     const streak = this.streakCalculation()
     console.log(streak)
     if (id > 0) {
-      fetch('http://localhost:3000/profile', {
+      fetch('https://dailyrosary-api.herokuapp.com/profile', {
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ id, level, prayed, streak })
@@ -139,7 +139,7 @@ class App extends Component {
     if (!signedin && firstName && lastName && email && password && joined) {
       
       console.log(joined)
-      fetch('http://localhost:3000/register', {
+      fetch('https://dailyrosary-api.herokuapp.com/register', {
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ firstName, lastName, email, password, joined })
@@ -166,7 +166,7 @@ class App extends Component {
     const { password } = this.state;
     
     if (email && password) {
-      fetch('http://localhost:3000/signin', {
+      fetch('https://dailyrosary-api.herokuapp.com/signin', {
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ email, password })
@@ -192,7 +192,7 @@ class App extends Component {
   lastLogoutTime = () => {
     const {id} = this.state.users
     const lastlogouttime = moment().add(1, 'days')
-    fetch('http://localhost:3000/profile',{
+    fetch('https://dailyrosary-api.herokuapp.com/profile',{
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ id, lastlogouttime })
