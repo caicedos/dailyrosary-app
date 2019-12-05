@@ -96,7 +96,7 @@ class PrayApp extends Component {
 
     render() {
         const { toggle, meditation, audio, prayer1, prayer2, today, counter, misteries } = this.state
-        console.log(toggle)
+
         return (
             <div>
                 <h1 style={{ textAlign: 'center' }}>Holy Rosary</h1>

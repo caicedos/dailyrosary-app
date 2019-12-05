@@ -6,9 +6,6 @@ import AssumptionMaryMeditation from '../GloriousMeditation/AssumptionMaryMedita
 import CoronationMaryMeditation from '../GloriousMeditation/CoronationMary';
 
 const Glorious = ({ misteries, meditation }) => {
-    console.log(misteries)
-    console.log(meditation)
-
     switch (misteries) {
         case 1:
             return (

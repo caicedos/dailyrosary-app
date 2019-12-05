@@ -107,7 +107,6 @@ class App extends Component {
   updateDbStats = () => {
     const { id, level, prayed } = this.state.users
     const streak = this.streakCalculation()
-    console.log(streak)
     if (id > 0) {
       fetch('https://dailyrosary-api.herokuapp.com/profile', {
         method: "post",
@@ -137,8 +136,6 @@ class App extends Component {
     const joined = moment().format('L');
     
     if (!signedin && firstName && lastName && email && password && joined) {
-      
-      console.log(joined)
       fetch('https://dailyrosary-api.herokuapp.com/register', {
         method: "post",
         headers: { "content-type": "application/json" },
@@ -148,7 +145,6 @@ class App extends Component {
         .then(data => {
           if (data === 'Incorrect form submission') {
           } else {
-            console.log(data)
             this.setState({
               signedin: true,
               users: data
@@ -197,7 +193,7 @@ class App extends Component {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ id, lastlogouttime })
     })
-      .catch((err) => console.log('error here', err))
+      .catch((err) => console.log('There was an error'))
   }
 
   signoutHandler = () => {

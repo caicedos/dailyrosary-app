@@ -28,5 +28,5 @@ textToSpeech
     console.log('written with a corrected wav header');
   })
   .catch(err => {
-    console.log(err);
+    console.log(err)
   });
