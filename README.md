@@ -12,3 +12,4 @@ This project is intended to help people pray the rosary, especially if they are 
 * HTML
 * JSX
 * Postgresql
+* IBM Watson
